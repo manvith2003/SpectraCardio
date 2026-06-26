@@ -1,0 +1,3 @@
+group_label,avg_V1_hf_relpower,avg_V2_hf_relpower,avg_V3_hf_relpower,avg_V1_spec_entropy
+Brugada,0.0987,0.1192,0.1504,4.289
+Healthy,0.1832,0.1713,0.1732,4.764

@@ -1,0 +1,17 @@
+# Raw dataset (downloaded via download_data.py; CC BY-SA 4.0, not redistributed here)
+data/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Keep outputs/ committed so the deployed dashboard has data to show.
+# (features.csv, *.csv, etc. are intentionally tracked.)
+outputs/brugada.db
+outputs/*.joblib
+# NOTE: outputs/dashboard_data.json IS tracked on purpose — GitHub Pages needs it.

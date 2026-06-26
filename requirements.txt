@@ -1,0 +1,8 @@
+wfdb>=4.0
+numpy
+pandas
+scipy
+scikit-learn
+joblib
+streamlit
+plotly
