@@ -1,0 +1,113 @@
+============================================================================
+SpectraCardio — DAX measures for Power BI
+============================================================================
+Create these in Power BI Desktop: in the Report view, right-click the
+fact_band_power table (or a dedicated "_Measures" table) -> New measure, then
+paste one block at a time. Names are what show up in visuals.
+
+Model relationships (build these first, in Model view):
+   dim_patient[patient_id]  1 --- *  fact_band_power[patient_id]
+   dim_patient[patient_id]  1 --- *  fact_lead_spectral[patient_id]
+   dim_lead[lead]           1 --- *  fact_band_power[lead]
+   dim_lead[lead]           1 --- *  fact_lead_spectral[lead]
+   dim_band[band]           1 --- *  fact_band_power[band]
+   (fact_threshold_curve stays standalone — no relationship needed.)
+----------------------------------------------------------------------------
+
+-- COHORT COUNTS --------------------------------------------------------------
+
+Total Patients = DISTINCTCOUNT(dim_patient[patient_id])
+
+Brugada Patients =
+CALCULATE([Total Patients], dim_patient[brugada] = 1)
+
+Healthy Patients =
+CALCULATE([Total Patients], dim_patient[brugada] = 0)
+
+Brugada Prevalence % =
+DIVIDE([Brugada Patients], [Total Patients])
+-- format as Percentage
+
+-- SCREEN PERFORMANCE (at the saved default flag) -----------------------------
+
+Flagged Patients =
+CALCULATE([Total Patients], dim_patient[flagged] = 1)
+
+Flag Rate % =
+DIVIDE([Flagged Patients], [Total Patients])
+
+True Alerts =
+CALCULATE([Total Patients], dim_patient[flagged] = 1, dim_patient[brugada] = 1)
+
+Missed Cases =
+CALCULATE([Total Patients], dim_patient[flagged] = 0, dim_patient[brugada] = 1)
+
+False Alarms =
+CALCULATE([Total Patients], dim_patient[flagged] = 1, dim_patient[brugada] = 0)
+
+Recall % =
+DIVIDE([True Alerts], [Brugada Patients])
+-- format as Percentage; this is the headline screening metric
+
+Precision % =
+DIVIDE([True Alerts], [Flagged Patients])
+-- format as Percentage
+
+-- SPECTRAL SIGNAL ------------------------------------------------------------
+
+Avg Rel Power =
+AVERAGE(fact_band_power[rel_power])
+-- put dim_lead[lead] on rows and dim_band[band_label] on columns to see the
+-- Brugada-vs-healthy spectral gap; slice by dim_patient[group_label]
+
+Avg V1 HF Rel Power =
+CALCULATE(
+    AVERAGE(fact_band_power[rel_power]),
+    dim_lead[lead] = "V1",
+    dim_band[band] = "hf_15_40"
+)
+
+HF Power Gap (Healthy - Brugada) =
+VAR brug =
+    CALCULATE([Avg V1 HF Rel Power], dim_patient[group_label] = "Brugada")
+VAR healthy =
+    CALCULATE([Avg V1 HF Rel Power], dim_patient[group_label] = "Healthy")
+RETURN healthy - brug
+
+Avg Risk Score =
+AVERAGE(dim_patient[risk_score])
+
+-- THRESHOLD WHAT-IF (uses the precomputed fact_threshold_curve table) --------
+-- Add a slicer on fact_threshold_curve[threshold]; these cards then update.
+
+Recall @ Threshold =
+DIVIDE(SUM(fact_threshold_curve[caught]), [Brugada Patients])
+
+False Alarms @ Threshold =
+SUM(fact_threshold_curve[false_alarm])
+
+Cases Caught @ Threshold =
+SUM(fact_threshold_curve[caught])
+
+-- EARLY-WARNING FORECAST (uses standalone fact_forecast_timeline) ------------
+-- No relationship needed. Build a line chart: Axis = t_sec, Values = risk,
+-- forecast, threshold. Add pre_alert / flagged as markers or a second visual.
+
+Pre-Alerts Fired =
+SUM(fact_forecast_timeline[pre_alert])
+
+Earliest Pre-Alert (s) =
+CALCULATE(MIN(fact_forecast_timeline[t_sec]),
+          fact_forecast_timeline[pre_alert] = 1)
+
+Threshold Crossing (s) =
+CALCULATE(MIN(fact_forecast_timeline[t_sec]),
+          fact_forecast_timeline[flagged] = 1)
+
+Early-Warning Lead Time (s) =
+[Threshold Crossing (s)] - [Earliest Pre-Alert (s)]
+-- how many seconds of warning the forecast bought before the actual crossing
+
+Peak Forecast Risk =
+MAX(fact_forecast_timeline[forecast])
+============================================================================

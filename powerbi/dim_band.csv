@@ -1,0 +1,4 @@
+band,band_label,freq_low_hz,freq_high_hz,description
+lf_0p5_5,LF (0.5-5 Hz),0.5,5,ST / T-wave morphology band
+mf_5_15,MF (5-15 Hz),5.0,15,QRS bulk energy band
+hf_15_40,HF (15-40 Hz),15.0,40,High-frequency content (key Brugada signal)

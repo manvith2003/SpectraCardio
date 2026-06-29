@@ -1,0 +1,5 @@
+entropy_quartile,n_patients,avg_entropy,brugada_cases,brugada_rate_pct
+1,89,4.028,40,44.9
+2,89,4.621,18,20.2
+3,89,4.886,8,9.0
+4,89,5.154,3,3.4

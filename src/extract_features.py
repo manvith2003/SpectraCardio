@@ -22,7 +22,6 @@ import os
 _ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 import numpy as np
 import pandas as pd
-import wfdb
 from scipy import signal as sp
 from scipy.fft import rfft, rfftfreq
 from scipy.stats import entropy as scipy_entropy
@@ -87,6 +86,7 @@ def morphology_features(sig, fs=FS, prefix=""):
 
 
 def process_patient(pid):
+    import wfdb  # lazy: only the batch loader needs wfdb, not the feature funcs
     rec = wfdb.rdrecord(os.path.join(DATA_DIR, "files", str(pid), str(pid)))
     idx = [rec.sig_name.index(l) for l in LEADS]
     raw = rec.p_signal[:, idx]                 # (1200, 3)

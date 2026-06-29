@@ -13,5 +13,6 @@ venv/
 # Keep outputs/ committed so the deployed dashboard has data to show.
 # (features.csv, *.csv, etc. are intentionally tracked.)
 outputs/brugada.db
+outputs/*.db-journal
 outputs/*.joblib
 # NOTE: outputs/dashboard_data.json IS tracked on purpose — GitHub Pages needs it.

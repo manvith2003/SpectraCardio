@@ -1,0 +1,357 @@
+patient_id,group_label,brugada,sudden_death,scd_label,basal_pattern,basal_label,risk_score,flagged
+188981,Brugada,1,0,No SCD,1,Basal pattern,0.7375,1
+251972,Healthy,0,0,No SCD,0,No basal pattern,0.705,1
+265715,Healthy,0,0,No SCD,0,No basal pattern,0.1575,0
+267628,Healthy,0,0,No SCD,0,No basal pattern,0.0275,0
+267630,Brugada,1,0,No SCD,0,No basal pattern,0.21,0
+286830,Healthy,0,0,No SCD,0,No basal pattern,0.06,0
+287355,Healthy,0,0,No SCD,0,No basal pattern,0.085,0
+292220,Healthy,0,0,No SCD,0,No basal pattern,0.0525,0
+292666,Healthy,0,0,No SCD,0,No basal pattern,0.095,0
+304141,Healthy,0,0,No SCD,0,No basal pattern,0.145,0
+314397,Healthy,0,0,No SCD,0,No basal pattern,0.175,0
+316872,Healthy,0,0,No SCD,0,No basal pattern,0.0025,0
+317547,Healthy,0,1,SCD history,0,No basal pattern,0.1575,0
+319150,Brugada,1,0,No SCD,0,No basal pattern,0.115,0
+319221,Healthy,0,0,No SCD,0,No basal pattern,0.06,0
+325231,Healthy,0,0,No SCD,0,No basal pattern,0.0125,0
+325966,Healthy,0,0,No SCD,0,No basal pattern,0.09,0
+329034,Healthy,0,0,No SCD,0,No basal pattern,0.0175,0
+329533,Healthy,0,0,No SCD,0,No basal pattern,0.125,0
+395553,Healthy,0,0,No SCD,0,No basal pattern,0.6025,1
+405298,Healthy,0,0,No SCD,0,No basal pattern,0.0225,0
+406008,Healthy,0,0,No SCD,1,Basal pattern,0.5725,1
+413267,Healthy,0,0,No SCD,0,No basal pattern,0.06,0
+419510,Healthy,0,0,No SCD,0,No basal pattern,0.295,0
+419960,Brugada,1,0,No SCD,0,No basal pattern,0.2725,0
+428031,Brugada,1,1,SCD history,1,Basal pattern,0.4725,0
+434996,Healthy,0,0,No SCD,0,No basal pattern,0.18,0
+438721,Healthy,0,0,No SCD,0,No basal pattern,0.0275,0
+445953,Healthy,0,0,No SCD,0,No basal pattern,0.035,0
+450733,Healthy,0,0,No SCD,0,No basal pattern,0.0725,0
+461866,Healthy,0,0,No SCD,0,No basal pattern,0.23,0
+466796,Healthy,0,0,No SCD,0,No basal pattern,0.475,0
+471727,Brugada,1,0,No SCD,0,No basal pattern,0.4125,0
+478457,Healthy,0,0,No SCD,0,No basal pattern,0.0725,0
+482516,Brugada,1,0,No SCD,0,No basal pattern,0.7225,1
+482868,Healthy,0,0,No SCD,0,No basal pattern,0.1675,0
+487609,Healthy,0,0,No SCD,1,Basal pattern,0.0375,0
+489539,Healthy,0,0,No SCD,0,No basal pattern,0.04,0
+505351,Healthy,0,0,No SCD,0,No basal pattern,0.0325,0
+506408,Healthy,0,0,No SCD,0,No basal pattern,0.1925,0
+509648,Brugada,1,0,No SCD,0,No basal pattern,0.6075,1
+516092,Healthy,0,0,No SCD,0,No basal pattern,0.0175,0
+519139,Healthy,0,0,No SCD,0,No basal pattern,0.04,0
+519687,Brugada,1,0,No SCD,0,No basal pattern,0.085,0
+532816,Healthy,0,0,No SCD,1,Basal pattern,0.375,0
+538053,Healthy,0,0,No SCD,0,No basal pattern,0.38,0
+540736,Healthy,0,0,No SCD,0,No basal pattern,0.1425,0
+548140,Healthy,0,0,No SCD,0,No basal pattern,0.195,0
+548865,Healthy,0,0,No SCD,0,No basal pattern,0.04,0
+558967,Healthy,0,0,No SCD,0,No basal pattern,0.0675,0
+577838,Healthy,0,0,No SCD,0,No basal pattern,0.2575,0
+580720,Healthy,0,0,No SCD,0,No basal pattern,0.1375,0
+581912,Brugada,1,0,No SCD,0,No basal pattern,0.54,1
+592768,Healthy,0,0,No SCD,0,No basal pattern,0.2425,0
+596382,Healthy,0,0,No SCD,0,No basal pattern,0.0125,0
+597251,Healthy,0,0,No SCD,1,Basal pattern,0.24,0
+613119,Healthy,0,0,No SCD,0,No basal pattern,0.1975,0
+614578,Healthy,0,0,No SCD,0,No basal pattern,0.0975,0
+614707,Healthy,0,0,No SCD,0,No basal pattern,0.0825,0
+622530,Healthy,0,0,No SCD,0,No basal pattern,0.18,0
+624511,Healthy,0,0,No SCD,0,No basal pattern,0.115,0
+625190,Healthy,0,0,No SCD,0,No basal pattern,0.025,0
+641455,Healthy,0,0,No SCD,0,No basal pattern,0.0975,0
+643139,Healthy,0,0,No SCD,0,No basal pattern,0.1775,0
+801261,Brugada,1,0,No SCD,0,No basal pattern,0.13,0
+806949,Healthy,0,0,No SCD,0,No basal pattern,0.055,0
+807363,Brugada,1,0,No SCD,0,No basal pattern,0.13,0
+812209,Healthy,0,0,No SCD,0,No basal pattern,0.09,0
+812404,Brugada,1,0,No SCD,0,No basal pattern,0.27,0
+814286,Healthy,0,0,No SCD,0,No basal pattern,0.07,0
+816929,Brugada,1,0,No SCD,0,No basal pattern,0.7575,1
+819710,Brugada,1,0,No SCD,0,No basal pattern,0.735,1
+821478,Healthy,0,0,No SCD,0,No basal pattern,0.075,0
+822756,Healthy,0,0,No SCD,0,No basal pattern,0.08,0
+829768,Healthy,0,0,No SCD,0,No basal pattern,0.0075,0
+830179,Healthy,0,0,No SCD,1,Basal pattern,0.4525,0
+841869,Healthy,0,0,No SCD,0,No basal pattern,0.065,0
+844915,Healthy,0,0,No SCD,0,No basal pattern,0.075,0
+849168,Healthy,0,0,No SCD,0,No basal pattern,0.185,0
+852786,Brugada,1,0,No SCD,1,Basal pattern,0.545,1
+855592,Brugada,1,0,No SCD,0,No basal pattern,0.115,0
+865998,Healthy,0,0,No SCD,0,No basal pattern,0.3575,0
+866721,Healthy,0,0,No SCD,0,No basal pattern,0.245,0
+873255,Brugada,1,0,No SCD,1,Basal pattern,0.3675,0
+878765,Brugada,1,0,No SCD,1,Basal pattern,0.03,0
+887465,Healthy,0,0,No SCD,0,No basal pattern,0.035,0
+891754,Healthy,0,0,No SCD,0,No basal pattern,0.2875,0
+894725,Healthy,0,0,No SCD,0,No basal pattern,0.0425,0
+898726,Brugada,1,0,No SCD,0,No basal pattern,0.2625,0
+903442,Healthy,0,0,No SCD,0,No basal pattern,0.065,0
+903802,Healthy,0,0,No SCD,0,No basal pattern,0.2575,0
+907736,Healthy,0,0,No SCD,0,No basal pattern,0.205,0
+913169,Healthy,0,0,No SCD,0,No basal pattern,0.0175,0
+918062,Healthy,0,0,No SCD,0,No basal pattern,0.0575,0
+920037,Healthy,0,0,No SCD,0,No basal pattern,0.1225,0
+921230,Healthy,0,0,No SCD,0,No basal pattern,0.255,0
+930107,Healthy,0,0,No SCD,0,No basal pattern,0.0025,0
+935156,Healthy,0,0,No SCD,0,No basal pattern,0.05,0
+938838,Healthy,0,0,No SCD,0,No basal pattern,0.0625,0
+939546,Healthy,0,0,No SCD,0,No basal pattern,0.185,0
+952177,Healthy,0,0,No SCD,0,No basal pattern,0.0625,0
+952641,Brugada,1,0,No SCD,0,No basal pattern,0.2125,0
+953976,Healthy,0,0,No SCD,0,No basal pattern,0.105,0
+958460,Healthy,0,0,No SCD,1,Basal pattern,0.02,0
+958703,Brugada,1,0,No SCD,0,No basal pattern,0.24,0
+959843,Healthy,0,0,No SCD,0,No basal pattern,0.195,0
+960432,Healthy,0,0,No SCD,0,No basal pattern,0.0975,0
+962566,Healthy,0,0,No SCD,0,No basal pattern,0.1475,0
+964469,Healthy,0,0,No SCD,0,No basal pattern,0.02,0
+965217,Brugada,1,0,No SCD,0,No basal pattern,0.405,0
+967547,Healthy,0,0,No SCD,0,No basal pattern,0.285,0
+968556,Healthy,0,0,No SCD,0,No basal pattern,0.3125,0
+969321,Healthy,0,0,No SCD,0,No basal pattern,0.175,0
+970649,Healthy,0,0,No SCD,0,No basal pattern,0.005,0
+972048,Brugada,1,0,No SCD,0,No basal pattern,0.0475,0
+972330,Brugada,1,0,No SCD,1,Basal pattern,0.6525,1
+972781,Healthy,0,0,No SCD,0,No basal pattern,0.175,0
+980284,Brugada,1,1,SCD history,1,Basal pattern,0.175,0
+982732,Healthy,0,0,No SCD,0,No basal pattern,0.0425,0
+985814,Healthy,0,0,No SCD,0,No basal pattern,0.0875,0
+991528,Brugada,1,0,No SCD,0,No basal pattern,0.0325,0
+994065,Healthy,0,0,No SCD,0,No basal pattern,0.0375,0
+994217,Healthy,0,0,No SCD,1,Basal pattern,0.2,0
+994515,Healthy,0,0,No SCD,0,No basal pattern,0.195,0
+998036,Healthy,0,0,No SCD,0,No basal pattern,0.0075,0
+999474,Healthy,0,0,No SCD,1,Basal pattern,0.08,0
+1009874,Healthy,0,0,No SCD,0,No basal pattern,0.0275,0
+1013884,Healthy,0,0,No SCD,0,No basal pattern,0.09,0
+1023925,Healthy,0,0,No SCD,0,No basal pattern,0.0375,0
+1036640,Healthy,0,0,No SCD,0,No basal pattern,0.0425,0
+1041375,Healthy,0,0,No SCD,0,No basal pattern,0.1625,0
+1053511,Healthy,0,0,No SCD,0,No basal pattern,0.0625,0
+1054733,Healthy,0,0,No SCD,0,No basal pattern,0.105,0
+1058085,Healthy,0,0,No SCD,0,No basal pattern,0.1375,0
+1058605,Healthy,0,0,No SCD,0,No basal pattern,0.1,0
+1061898,Healthy,0,0,No SCD,0,No basal pattern,0.025,0
+1063368,Healthy,0,0,No SCD,0,No basal pattern,0.1325,0
+1073253,Healthy,0,0,No SCD,0,No basal pattern,0.025,0
+1074787,Healthy,0,0,No SCD,0,No basal pattern,0.065,0
+1080968,Healthy,0,0,No SCD,0,No basal pattern,0.3325,0
+1081032,Healthy,0,0,No SCD,0,No basal pattern,0.01,0
+1081338,Healthy,0,0,No SCD,0,No basal pattern,0.085,0
+1084994,Brugada,1,0,No SCD,0,No basal pattern,0.5925,1
+1085203,Healthy,0,0,No SCD,0,No basal pattern,0.0325,0
+1087704,Healthy,0,0,No SCD,0,No basal pattern,0.0325,0
+1088175,Healthy,0,0,No SCD,0,No basal pattern,0.04,0
+1088261,Healthy,0,0,No SCD,0,No basal pattern,0.0375,0
+1088796,Healthy,0,0,No SCD,0,No basal pattern,0.0075,0
+1092237,Brugada,1,0,No SCD,0,No basal pattern,0.205,0
+1093224,Healthy,0,0,No SCD,0,No basal pattern,0.085,0
+1096625,Healthy,0,0,No SCD,0,No basal pattern,0.0975,0
+1097714,Healthy,0,0,No SCD,0,No basal pattern,0.595,1
+1098314,Brugada,1,0,No SCD,0,No basal pattern,0.41,0
+1099262,Healthy,0,0,No SCD,0,No basal pattern,0.325,0
+1102607,Healthy,0,0,No SCD,0,No basal pattern,0.12,0
+1103983,Healthy,0,0,No SCD,0,No basal pattern,0.4125,0
+1106149,Healthy,0,0,No SCD,0,No basal pattern,0.295,0
+1112604,Healthy,0,0,No SCD,0,No basal pattern,0.115,0
+1117553,Healthy,0,0,No SCD,0,No basal pattern,0.15,0
+1118251,Healthy,0,0,No SCD,0,No basal pattern,0.0275,0
+1121137,Healthy,0,0,No SCD,0,No basal pattern,0.2,0
+1122903,Brugada,1,0,No SCD,1,Basal pattern,0.13,0
+1124825,Healthy,0,0,No SCD,0,No basal pattern,0.06,0
+1124826,Healthy,0,0,No SCD,0,No basal pattern,0.0375,0
+1128835,Brugada,1,0,No SCD,0,No basal pattern,0.5675,1
+1134284,Healthy,0,0,No SCD,1,Basal pattern,0.445,0
+1135434,Healthy,0,0,No SCD,0,No basal pattern,0.135,0
+1138153,Healthy,0,0,No SCD,0,No basal pattern,0.065,0
+1141322,Brugada,1,1,SCD history,0,No basal pattern,0.475,0
+1142915,Healthy,0,1,SCD history,0,No basal pattern,0.685,1
+1145203,Healthy,0,1,SCD history,0,No basal pattern,0.3925,0
+1146063,Healthy,0,0,No SCD,0,No basal pattern,0.005,0
+1147684,Brugada,1,1,SCD history,0,No basal pattern,0.125,0
+1148718,Healthy,0,0,No SCD,0,No basal pattern,0.08,0
+1152054,Brugada,1,0,No SCD,0,No basal pattern,0.7975,1
+1157038,Brugada,1,0,No SCD,1,Basal pattern,0.585,1
+1160261,Healthy,0,0,No SCD,0,No basal pattern,0.0325,0
+1165447,Healthy,0,0,No SCD,0,No basal pattern,0.22,0
+1165448,Healthy,0,0,No SCD,0,No basal pattern,0.215,0
+1169405,Healthy,0,0,No SCD,1,Basal pattern,0.1625,0
+1172602,Healthy,0,0,No SCD,0,No basal pattern,0.0025,0
+1176675,Healthy,0,0,No SCD,0,No basal pattern,0.03,0
+1177018,Healthy,0,0,No SCD,0,No basal pattern,0.11,0
+1180702,Healthy,0,0,No SCD,0,No basal pattern,0.1425,0
+1183349,Healthy,0,0,No SCD,0,No basal pattern,0.0025,0
+1184742,Healthy,0,0,No SCD,0,No basal pattern,0.1,0
+1187599,Healthy,0,0,No SCD,0,No basal pattern,0.0275,0
+1188747,Healthy,0,0,No SCD,0,No basal pattern,0.0375,0
+1190805,Healthy,0,0,No SCD,1,Basal pattern,0.22,0
+1191551,Healthy,0,0,No SCD,0,No basal pattern,0.0,0
+1191595,Brugada,1,0,No SCD,1,Basal pattern,0.13,0
+1192135,Healthy,0,0,No SCD,0,No basal pattern,0.02,0
+1192146,Healthy,0,0,No SCD,0,No basal pattern,0.0,0
+1192654,Healthy,0,0,No SCD,0,No basal pattern,0.095,0
+1197538,Brugada,1,0,No SCD,0,No basal pattern,0.4075,0
+1199480,Brugada,1,0,No SCD,0,No basal pattern,0.49,0
+1199517,Brugada,1,0,No SCD,0,No basal pattern,0.1825,0
+1199593,Healthy,0,0,No SCD,0,No basal pattern,0.1975,0
+1202306,Healthy,0,0,No SCD,0,No basal pattern,0.1475,0
+1207769,Healthy,0,0,No SCD,0,No basal pattern,0.025,0
+1207947,Brugada,1,0,No SCD,0,No basal pattern,0.32,0
+1214441,Healthy,0,0,No SCD,0,No basal pattern,0.3975,0
+1220716,Brugada,1,0,No SCD,1,Basal pattern,0.7325,1
+1221590,Healthy,0,0,No SCD,0,No basal pattern,0.265,0
+1223519,Healthy,0,0,No SCD,0,No basal pattern,0.215,0
+1224102,Brugada,1,0,No SCD,0,No basal pattern,0.6175,1
+1228746,Healthy,0,0,No SCD,0,No basal pattern,0.0725,0
+1230482,Brugada,1,0,No SCD,1,Basal pattern,0.2975,0
+1231339,Healthy,0,0,No SCD,0,No basal pattern,0.125,0
+1235674,Healthy,0,0,No SCD,1,Basal pattern,0.0225,0
+1236012,Healthy,0,0,No SCD,0,No basal pattern,0.0425,0
+1237748,Healthy,0,0,No SCD,1,Basal pattern,0.3075,0
+1238446,Brugada,1,0,No SCD,1,Basal pattern,0.4675,0
+1238671,Healthy,0,0,No SCD,1,Basal pattern,0.15,0
+1242678,Healthy,0,0,No SCD,0,No basal pattern,0.02,0
+1244867,Healthy,0,0,No SCD,0,No basal pattern,0.1925,0
+1248576,Healthy,0,0,No SCD,0,No basal pattern,0.62,1
+1248611,Healthy,0,0,No SCD,0,No basal pattern,0.065,0
+1252288,Healthy,0,0,No SCD,0,No basal pattern,0.0125,0
+1254062,Healthy,0,0,No SCD,0,No basal pattern,0.06,0
+1254171,Healthy,0,0,No SCD,0,No basal pattern,0.0775,0
+1254267,Brugada,1,0,No SCD,1,Basal pattern,0.0775,0
+1259391,Healthy,0,0,No SCD,1,Basal pattern,0.3,0
+1263008,Healthy,0,0,No SCD,0,No basal pattern,0.04,0
+1270798,Healthy,0,0,No SCD,0,No basal pattern,0.07,0
+1272319,Healthy,0,0,No SCD,0,No basal pattern,0.0,0
+1272821,Healthy,0,0,No SCD,0,No basal pattern,0.1975,0
+1274776,Healthy,0,0,No SCD,0,No basal pattern,0.125,0
+1275329,Healthy,0,0,No SCD,0,No basal pattern,0.0575,0
+1277374,Healthy,0,0,No SCD,0,No basal pattern,0.0275,0
+1278746,Healthy,0,0,No SCD,1,Basal pattern,0.0375,0
+1280588,Healthy,0,0,No SCD,1,Basal pattern,0.0675,0
+1281380,Healthy,0,0,No SCD,0,No basal pattern,0.615,1
+1284182,Healthy,0,0,No SCD,0,No basal pattern,0.015,0
+1285404,Healthy,0,0,No SCD,0,No basal pattern,0.03,0
+1286512,Healthy,0,0,No SCD,0,No basal pattern,0.1825,0
+1290629,Healthy,0,0,No SCD,0,No basal pattern,0.1475,0
+1294540,Healthy,0,0,No SCD,0,No basal pattern,0.0,0
+1297151,Healthy,0,0,No SCD,0,No basal pattern,0.03,0
+1297765,Healthy,0,0,No SCD,0,No basal pattern,0.0425,0
+1297767,Healthy,0,0,No SCD,0,No basal pattern,0.1625,0
+1298469,Healthy,0,0,No SCD,0,No basal pattern,0.0525,0
+1303729,Healthy,0,0,No SCD,0,No basal pattern,0.14,0
+1305051,Healthy,0,0,No SCD,0,No basal pattern,0.0675,0
+1307673,Healthy,0,0,No SCD,0,No basal pattern,0.075,0
+1307716,Healthy,0,0,No SCD,0,No basal pattern,0.425,0
+1309300,Healthy,0,0,No SCD,0,No basal pattern,0.07,0
+1310052,Healthy,0,0,No SCD,0,No basal pattern,0.1875,0
+1312303,Healthy,0,0,No SCD,0,No basal pattern,0.4175,0
+1313974,Healthy,0,0,No SCD,0,No basal pattern,0.03,0
+1316784,Healthy,0,0,No SCD,0,No basal pattern,0.0725,0
+1318568,Healthy,0,0,No SCD,0,No basal pattern,0.0175,0
+1326991,Healthy,0,0,No SCD,0,No basal pattern,0.205,0
+1327775,Healthy,0,0,No SCD,0,No basal pattern,0.2275,0
+1327784,Healthy,0,0,No SCD,0,No basal pattern,0.58,1
+1332388,Healthy,0,1,SCD history,0,No basal pattern,0.59,1
+1336243,Healthy,0,0,No SCD,0,No basal pattern,0.185,0
+1337461,Healthy,0,0,No SCD,0,No basal pattern,0.115,0
+1338772,Healthy,0,0,No SCD,0,No basal pattern,0.2,0
+1338780,Healthy,0,0,No SCD,0,No basal pattern,0.425,0
+1342979,Healthy,0,0,No SCD,0,No basal pattern,0.21,0
+1344639,Healthy,0,0,No SCD,0,No basal pattern,0.09,0
+1346727,Healthy,0,0,No SCD,1,Basal pattern,0.44,0
+1350930,Healthy,0,0,No SCD,0,No basal pattern,0.12,0
+1357325,Healthy,0,0,No SCD,0,No basal pattern,0.0,0
+1358245,Brugada,1,0,No SCD,1,Basal pattern,0.5475,1
+1360656,Healthy,0,0,No SCD,0,No basal pattern,0.255,0
+1366050,Healthy,0,0,No SCD,0,No basal pattern,0.0725,0
+1366637,Healthy,0,0,No SCD,1,Basal pattern,0.0775,0
+1370418,Brugada,1,0,No SCD,0,No basal pattern,0.17,0
+1370819,Healthy,0,0,No SCD,1,Basal pattern,0.1575,0
+1371132,Healthy,0,1,SCD history,0,No basal pattern,0.1425,0
+1371554,Brugada,1,0,No SCD,1,Basal pattern,0.0775,0
+1372180,Healthy,0,0,No SCD,1,Basal pattern,0.475,0
+1372181,Healthy,0,0,No SCD,0,No basal pattern,0.035,0
+1381534,Healthy,0,0,No SCD,0,No basal pattern,0.45,0
+1382112,Healthy,0,0,No SCD,1,Basal pattern,0.19,0
+1383335,Healthy,0,0,No SCD,0,No basal pattern,0.0925,0
+1385747,Healthy,0,0,No SCD,0,No basal pattern,0.0775,0
+1386698,Healthy,0,0,No SCD,0,No basal pattern,0.04,0
+1390489,Brugada,1,0,No SCD,0,No basal pattern,0.5525,1
+1403173,Healthy,0,0,No SCD,0,No basal pattern,0.0075,0
+1404688,Healthy,0,0,No SCD,0,No basal pattern,0.0,0
+1407660,Healthy,0,0,No SCD,0,No basal pattern,0.2575,0
+1408290,Brugada,1,0,No SCD,0,No basal pattern,0.51,1
+1414022,Healthy,0,0,No SCD,0,No basal pattern,0.1725,0
+1414967,Healthy,0,1,SCD history,1,Basal pattern,0.0725,0
+1416483,Healthy,0,0,No SCD,0,No basal pattern,0.045,0
+1417008,Healthy,0,0,No SCD,0,No basal pattern,0.05,0
+1418000,Healthy,0,0,No SCD,0,No basal pattern,0.2825,0
+1419825,Healthy,0,0,No SCD,0,No basal pattern,0.015,0
+1421261,Healthy,0,0,No SCD,0,No basal pattern,0.0325,0
+1421316,Healthy,0,0,No SCD,0,No basal pattern,0.1275,0
+1422523,Healthy,0,0,No SCD,0,No basal pattern,0.0875,0
+1422770,Healthy,0,0,No SCD,0,No basal pattern,0.16,0
+1423789,Healthy,0,0,No SCD,0,No basal pattern,0.03,0
+1424148,Healthy,0,0,No SCD,0,No basal pattern,0.36,0
+1425960,Healthy,0,0,No SCD,0,No basal pattern,0.0525,0
+1426919,Brugada,1,0,No SCD,1,Basal pattern,0.4825,0
+2187085,Brugada,1,0,No SCD,1,Basal pattern,0.0325,0
+2635972,Healthy,0,0,No SCD,0,No basal pattern,0.1025,0
+3003692,Brugada,1,0,No SCD,0,No basal pattern,0.7225,1
+3004284,Brugada,1,0,No SCD,0,No basal pattern,0.295,0
+3006598,Healthy,0,0,No SCD,0,No basal pattern,0.0325,0
+3007664,Healthy,0,0,No SCD,0,No basal pattern,0.0725,0
+3009538,Healthy,0,0,No SCD,0,No basal pattern,0.085,0
+3009950,Brugada,1,0,No SCD,0,No basal pattern,0.5625,1
+3015438,Brugada,1,0,No SCD,1,Basal pattern,0.36,0
+3015440,Healthy,0,0,No SCD,0,No basal pattern,0.1375,0
+3015449,Brugada,1,0,No SCD,0,No basal pattern,0.6225,1
+3016401,Healthy,0,0,No SCD,0,No basal pattern,0.01,0
+3028930,Brugada,1,0,No SCD,0,No basal pattern,0.2,0
+3030937,Healthy,0,0,No SCD,0,No basal pattern,0.1025,0
+3035210,Healthy,0,0,No SCD,0,No basal pattern,0.06,0
+3037390,Healthy,0,0,No SCD,0,No basal pattern,0.4675,0
+3037617,Brugada,1,0,No SCD,0,No basal pattern,0.45,0
+3043155,Brugada,1,0,No SCD,0,No basal pattern,0.285,0
+3044775,Brugada,1,0,No SCD,0,No basal pattern,0.7925,1
+3045053,Healthy,0,0,No SCD,0,No basal pattern,0.21,0
+3045059,Healthy,0,0,No SCD,0,No basal pattern,0.295,0
+3045751,Healthy,0,0,No SCD,0,No basal pattern,0.4,0
+3058024,Healthy,0,0,No SCD,0,No basal pattern,0.23,0
+3058134,Healthy,0,0,No SCD,0,No basal pattern,0.045,0
+3062045,Healthy,0,0,No SCD,0,No basal pattern,0.0075,0
+3064724,Healthy,0,0,No SCD,0,No basal pattern,0.03,0
+3065295,Healthy,0,0,No SCD,0,No basal pattern,0.495,0
+3067191,Healthy,0,0,No SCD,0,No basal pattern,0.1975,0
+3067196,Brugada,1,0,No SCD,0,No basal pattern,0.4575,0
+3071151,Healthy,0,0,No SCD,0,No basal pattern,0.0925,0
+3072833,Brugada,1,0,No SCD,0,No basal pattern,0.1875,0
+3072836,Brugada,1,0,No SCD,0,No basal pattern,0.5875,1
+3073346,Healthy,0,0,No SCD,0,No basal pattern,0.0325,0
+3074751,Healthy,0,0,No SCD,0,No basal pattern,0.315,0
+3075260,Healthy,0,0,No SCD,0,No basal pattern,0.1375,0
+3080118,Brugada,1,0,No SCD,0,No basal pattern,0.14,0
+3080186,Brugada,1,0,No SCD,0,No basal pattern,0.3775,0
+3092472,Healthy,0,0,No SCD,0,No basal pattern,0.1,0
+3093924,Healthy,0,0,No SCD,0,No basal pattern,0.0075,0
+3094047,Healthy,0,0,No SCD,0,No basal pattern,0.015,0
+3094049,Brugada,1,0,No SCD,0,No basal pattern,0.5625,1
+3095195,Healthy,0,0,No SCD,0,No basal pattern,0.2775,0
+3095200,Brugada,1,0,No SCD,0,No basal pattern,0.36,0
+3096254,Healthy,0,0,No SCD,0,No basal pattern,0.55,1
+3099875,Healthy,0,0,No SCD,0,No basal pattern,0.0,0
+3101011,Healthy,0,0,No SCD,0,No basal pattern,0.1425,0
+3110550,Healthy,0,0,No SCD,0,No basal pattern,0.08,0
+3113249,Healthy,0,0,No SCD,0,No basal pattern,0.0175,0
+3114582,Healthy,0,0,No SCD,0,No basal pattern,0.4925,0
+3118448,Healthy,0,0,No SCD,0,No basal pattern,0.0725,0
+3128412,Healthy,0,0,No SCD,0,No basal pattern,0.04,0
+3128947,Healthy,0,0,No SCD,0,No basal pattern,0.0175,0
+3128957,Healthy,0,0,No SCD,0,No basal pattern,0.1925,0
+3133602,Healthy,0,0,No SCD,0,No basal pattern,0.0075,0
+3136075,Healthy,0,0,No SCD,0,No basal pattern,0.025,0
+3138453,Healthy,0,0,No SCD,0,No basal pattern,0.09,0
+3139196,Healthy,0,0,No SCD,0,No basal pattern,0.04,0
