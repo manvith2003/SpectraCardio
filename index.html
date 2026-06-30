@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SpectraCardio — Live ECG Screening</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#070a12; --rose:#ff3b6b; --cyan:#22d3ee; --violet:#8b5cf6;
+    --ink:#eaf0ff; --muted:#9aa7c2;
+    --glass:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.025));
+    --stroke:rgba(255,255,255,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:'Inter',system-ui,sans-serif; color:var(--ink);
+    background:var(--bg); overflow-x:hidden; -webkit-font-smoothing:antialiased;
+  }
+  /* animated gradient blobs */
+  .blob{position:fixed;border-radius:50%;filter:blur(90px);opacity:.55;z-index:0;pointer-events:none}
+  .b1{width:520px;height:520px;background:radial-gradient(circle,#ff3b6b,transparent 60%);top:-120px;left:-80px;animation:f1 18s ease-in-out infinite}
+  .b2{width:560px;height:560px;background:radial-gradient(circle,#22d3ee,transparent 60%);bottom:-160px;right:-100px;animation:f2 22s ease-in-out infinite}
+  .b3{width:420px;height:420px;background:radial-gradient(circle,#8b5cf6,transparent 60%);top:40%;left:55%;animation:f1 26s ease-in-out infinite}
+  @keyframes f1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(60px,40px) scale(1.12)}}
+  @keyframes f2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-50px,-30px) scale(1.1)}}
+
+  .shell{position:relative;z-index:1;display:flex;min-height:100vh}
+  /* sidebar */
+  .side{width:240px;flex:0 0 240px;padding:26px 18px;position:sticky;top:0;height:100vh;
+        display:flex;flex-direction:column;gap:6px;backdrop-filter:blur(16px);
+        background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.01));
+        border-right:1px solid var(--stroke)}
+  .brand{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+  .brand .logo{font-size:26px;filter:drop-shadow(0 0 10px var(--rose))}
+  .brand h1{font-size:17px;font-weight:800;letter-spacing:.3px;line-height:1.1}
+  .brand small{color:var(--muted);font-size:10.5px;font-weight:500}
+  .nav{display:flex;flex-direction:column;gap:4px;margin-top:6px}
+  .nav button{display:flex;align-items:center;gap:11px;width:100%;text-align:left;
+        background:transparent;border:1px solid transparent;color:var(--muted);
+        padding:11px 13px;border-radius:13px;font-size:13.5px;font-weight:600;cursor:pointer;
+        transition:.22s}
+  .nav button:hover{color:var(--ink);background:rgba(255,255,255,.05)}
+  .nav button.on{color:#fff;background:var(--glass);border-color:var(--stroke);
+        box-shadow:0 6px 22px rgba(255,59,107,.18)}
+  .nav .ico{font-size:16px;width:18px;text-align:center}
+  .side .foot{margin-top:auto;font-size:10px;color:var(--muted);line-height:1.5}
+
+  .main{flex:1;padding:30px 38px 60px;max-width:1180px}
+  .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+  .topbar h2{font-size:23px;font-weight:800}
+  .topbar p{color:var(--muted);font-size:13px;margin-top:3px}
+  .pill{padding:6px 13px;border-radius:999px;font-size:11.5px;font-weight:700;
+        background:var(--glass);border:1px solid var(--stroke);backdrop-filter:blur(10px)}
+  .pill.warn{color:#ffd27a;border-color:rgba(255,210,122,.35)}
+
+  .grid{display:grid;gap:18px}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:1.5fr 1fr}
+  @media(max-width:900px){.g4{grid-template-columns:repeat(2,1fr)}.g3,.g2{grid-template-columns:1fr}.side{display:none}}
+
+  .card{background:var(--glass);border:1px solid var(--stroke);border-radius:20px;
+        padding:22px;backdrop-filter:blur(20px) saturate(150%);
+        box-shadow:0 10px 40px rgba(0,0,0,.4);transition:.25s;animation:rise .5s ease}
+  .card:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.22)}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .card h3{font-size:13px;font-weight:600;color:var(--muted);margin-bottom:8px;letter-spacing:.2px}
+  .kpi .v{font-size:34px;font-weight:800;line-height:1}
+  .kpi .s{font-size:11.5px;color:var(--muted);margin-top:6px}
+  .kpi .v.rose{color:var(--rose)} .kpi .v.cyan{color:var(--cyan)} .kpi .v.vio{color:var(--violet)}
+  .sec-title{font-size:14px;font-weight:700;margin:4px 0 14px;color:#fff}
+  .lead{color:var(--muted);font-size:13.5px;line-height:1.65}
+  .chartbox{position:relative;height:360px}
+  .chartbox.sm{height:230px}
+
+  .seg{display:inline-flex;gap:4px;background:rgba(255,255,255,.05);padding:5px;border-radius:12px;border:1px solid var(--stroke)}
+  .seg button{background:transparent;border:0;color:var(--muted);padding:7px 16px;border-radius:9px;font-weight:700;font-size:12.5px;cursor:pointer;transition:.2s}
+  .seg button.on{background:var(--glass);color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+
+  input[type=range]{-webkit-appearance:none;width:100%;height:6px;border-radius:999px;
+        background:linear-gradient(90deg,var(--rose),var(--violet));outline:none;margin:14px 0}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;
+        background:#fff;cursor:pointer;box-shadow:0 0 0 4px rgba(255,59,107,.35)}
+  select{background:rgba(10,14,24,.8);color:#fff;border:1px solid var(--stroke);border-radius:11px;padding:9px 12px;font-size:13px;font-weight:600;font-family:inherit}
+
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th{text-align:left;color:var(--muted);font-weight:600;padding:9px 10px;border-bottom:1px solid var(--stroke);position:sticky;top:0;background:rgba(10,14,24,.6);backdrop-filter:blur(6px)}
+  td{padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.05)}
+  .bar{height:7px;border-radius:999px;background:rgba(255,255,255,.1);overflow:hidden}
+  .bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--rose))}
+  .tag{padding:3px 9px;border-radius:999px;font-size:10.5px;font-weight:700}
+  .tag.flag{background:rgba(255,59,107,.18);color:var(--rose)}
+  .tag.ok{background:rgba(34,211,238,.15);color:var(--cyan)}
+
+  .btn{background:linear-gradient(135deg,var(--rose),var(--violet));border:0;color:#fff;
+        font-weight:700;font-size:13.5px;padding:12px 22px;border-radius:13px;cursor:pointer;
+        box-shadow:0 8px 26px rgba(255,59,107,.35);transition:.2s}
+  .btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+  .btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+  .gauge{font-size:54px;font-weight:800;line-height:1;letter-spacing:-1px}
+  .banner{padding:13px 16px;border-radius:14px;font-weight:700;font-size:13px;margin-top:6px}
+  .banner.warn{background:rgba(255,210,122,.14);color:#ffd27a;border:1px solid rgba(255,210,122,.35)}
+  .banner.alert{background:rgba(255,59,107,.16);color:var(--rose);border:1px solid rgba(255,59,107,.4)}
+  .banner.ok{background:rgba(34,211,238,.1);color:var(--cyan);border:1px solid rgba(34,211,238,.3)}
+  /* hero photo */
+  .hero{position:relative;padding:0;overflow:hidden;height:230px;margin-bottom:18px;
+        background:linear-gradient(120deg,#3a0d1c,#0a1830)}
+  .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55}
+  .hero-ov{position:relative;z-index:2;padding:30px 34px;height:100%;display:flex;flex-direction:column;justify-content:flex-end;
+        background:linear-gradient(90deg,rgba(7,10,18,.92),rgba(7,10,18,.45) 60%,rgba(7,10,18,.15))}
+  .hero-ov h4{font-size:22px;font-weight:800;margin-bottom:6px}
+  .hero-ov p{color:var(--muted);font-size:13px;max-width:560px;line-height:1.5}
+  .nav .ico svg, .logo svg{display:block}
+  .loading{display:flex;align-items:center;justify-content:center;height:100vh;flex-direction:column;gap:16px}
+  .spin{width:46px;height:46px;border:4px solid rgba(255,255,255,.15);border-top-color:var(--rose);border-radius:50%;animation:sp 1s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .mono{font-family:'JetBrains Mono',monospace}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<div id="root"></div>
+
+<script type="text/babel">
+const {useState, useEffect, useRef} = React;
+
+/* ---------- Chart.js dark defaults ---------- */
+Chart.defaults.color = 'rgba(234,240,255,.65)';
+Chart.defaults.font.family = "'Inter',sans-serif";
+Chart.defaults.borderColor = 'rgba(255,255,255,.08)';
+const ROSE='#ff3b6b', CYAN='#22d3ee', VIO='#8b5cf6';
+
+function ChartCanvas({type, data, options, h}){
+  const ref = useRef(null), inst = useRef(null);
+  useEffect(()=>{
+    if(inst.current) inst.current.destroy();
+    inst.current = new Chart(ref.current, {type, data, options});
+    return ()=>{ if(inst.current) inst.current.destroy(); };
+  });
+  return <div className="chartbox" style={h?{height:h}:null}><canvas ref={ref}></canvas></div>;
+}
+
+/* ---------- JS Holt early-warning forecaster (mirrors the Python one) ---------- */
+function makeForecaster(alpha=0.4, beta=0.3, hop=1){
+  let level=null, trend=0, hist=[];
+  const api={
+    update(y){ if(level===null){level=y;trend=0;} else {let pl=level; level=alpha*y+(1-alpha)*(level+trend); trend=beta*(level-pl)+(1-beta)*trend;} hist.push(y); },
+    forecast(h){ if(level===null) return 0; return Math.max(0,Math.min(1, level+h*trend)); },
+    slope(){ return trend/hop; },
+    lead(thr){ if(level===null||trend<=1e-9) return null; if(level>=thr) return 0; const k=(thr-level)/trend; return k>0?k*hop:null; },
+    preAlert(thr,h){ if(level===null) return null; const cur=hist[hist.length-1], f=api.forecast(h);
+      return (cur<thr && f>=thr && trend>0) ? {f, lead:api.lead(thr)} : null; }
+  };
+  return api;
+}
+
+/* ---------- inline SVG icons (no emojis) ---------- */
+function Icon({name, s=18}){
+  const p={
+    heart:<path d="M2 12h4l2-5 3 10 2-6 1.5 3H22"/>,
+    chart:<g><path d="M4 20V11"/><path d="M10 20V4"/><path d="M16 20v-6"/><path d="M3 20h18"/></g>,
+    wave:<path d="M2 12c2-7 4-7 6 0s4 7 6 0 4-7 6 0"/>,
+    triage:<g><path d="M5 21V4"/><path d="M5 4h12l-2.5 4L17 12H5"/></g>,
+    brain:<g><rect x="4" y="4" width="16" height="16" rx="3"/><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/></g>,
+    monitor:<g><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M6 11h2l1.5-3 2 5 1.5-2H18"/></g>,
+    warn:<g><path d="M12 3l9 16H3z"/><path d="M12 9v4M12 17h.01"/></g>,
+    play:<path d="M7 5v14l12-7z" fill="currentColor" stroke="none"/>,
+  };
+  return <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">{p[name]||p.chart}</svg>;
+}
+// real photo with graceful gradient fallback (hides image if it fails to load)
+const PHOTO="https://loremflickr.com/1280/360/electrocardiogram,heartbeat,cardiology";
+
+/* ===================== VIEWS ===================== */
+function Overview({d}){
+  const c=d.cohort;
+  const donut={labels:['Brugada','Healthy'],datasets:[{data:[c.brugada,c.healthy],
+    backgroundColor:[ROSE,CYAN],borderColor:'rgba(0,0,0,0)',hoverOffset:6}]};
+  return <>
+    <div className="card hero">
+      <img src={PHOTO} alt="" onError={e=>{e.target.style.display='none';}}/>
+      <div className="hero-ov">
+        <h4>Spectral ECG screening for Brugada syndrome</h4>
+        <p>FFT spectral features of precordial leads V1–V3, a recall-tuned classifier, and a
+        real-time monitor — on {c.total} real 12-lead recordings.</p>
+      </div>
+    </div>
+    <div className="grid g4">
+      <div className="card kpi"><h3>Total patients</h3><div className="v">{c.total}</div><div className="s">12-lead · 100 Hz</div></div>
+      <div className="card kpi"><h3>Brugada cases</h3><div className="v rose">{c.brugada}</div><div className="s">~19% — imbalanced</div></div>
+      <div className="card kpi"><h3>Healthy controls</h3><div className="v cyan">{c.healthy}</div><div className="s">majority class</div></div>
+      <div className="card kpi"><h3>ROC-AUC</h3><div className="v vio">{d.metrics.roc_auc.toFixed(2)}</div><div className="s">Random Forest, 5-fold CV</div></div>
+    </div>
+    <div className="grid g2" style={{marginTop:18}}>
+      <div className="card">
+        <div className="sec-title">Why recall, not accuracy</div>
+        <p className="lead">The cohort is <b>~19% positive</b>, so a model that always predicts
+        “healthy” scores <b>81%</b> while catching nobody. For a screen that must not miss a
+        fatal arrhythmia, the right metric is <b style={{color:'#fff'}}>recall on the Brugada class</b>.
+        At a screening threshold of 0.10 the model catches <b style={{color:CYAN}}>~90% (62/69)</b> of
+        cases — accepting more false alarms by design. The Triage tab lets you move that threshold
+        and watch the trade-off live.</p>
+      </div>
+      <div className="card"><div className="sec-title">Class balance</div>
+        <ChartCanvas type="doughnut" data={donut} h={250}
+          options={{plugins:{legend:{position:'bottom'}},cutout:'62%'}}/>
+      </div>
+    </div>
+  </>;
+}
+
+function Spectra({d}){
+  const [lead,setLead]=useState('V1');
+  const a=d.avg, f=a.freq;
+  const mask=f.map((x,i)=>x<=40?i:-1).filter(i=>i>=0);
+  const fx=mask.map(i=>f[i].toFixed(1));
+  const data={labels:fx,datasets:[
+    {label:'Brugada (avg)',data:mask.map(i=>a[lead+'_b'][i]),borderColor:ROSE,backgroundColor:'rgba(255,59,107,.12)',fill:true,pointRadius:0,tension:.3,borderWidth:2},
+    {label:'Healthy (avg)',data:mask.map(i=>a[lead+'_h'][i]),borderColor:CYAN,backgroundColor:'rgba(34,211,238,.10)',fill:true,pointRadius:0,tension:.3,borderWidth:2},
+  ]};
+  return <div className="card">
+    <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:6,flexWrap:'wrap',gap:10}}>
+      <div className="sec-title" style={{margin:0}}>Average FFT power spectrum — Brugada vs Healthy</div>
+      <div className="seg">{['V1','V2','V3'].map(l=><button key={l} className={lead===l?'on':''} onClick={()=>setLead(l)}>{l}</button>)}</div>
+    </div>
+    <ChartCanvas type="line" data={data}
+      options={{plugins:{legend:{position:'top'}},scales:{x:{title:{display:true,text:'Frequency (Hz)'},ticks:{maxTicksLimit:9}},y:{title:{display:true,text:'|FFT| magnitude'}}}}}/>
+    <p className="lead" style={{marginTop:14}}>The Brugada spectrum sits <b style={{color:'#fff'}}>below</b> the
+      healthy one across the <b>15–35 Hz</b> band — a consistent, learnable difference, strongest in V1.</p>
+  </div>;
+}
+
+function Triage({d, goPatient}){
+  const [thr,setThr]=useState(0.25);
+  const P=d.patients;
+  const pos=P.filter(p=>p.label===1).length;
+  const caught=P.filter(p=>p.label===1&&p.score>=thr).length;
+  const fa=P.filter(p=>p.label===0&&p.score>=thr).length;
+  const recall=pos?caught/pos:0;
+  const sorted=[...P].sort((a,b)=>b.score-a.score).slice(0,40);
+  return <>
+    <div className="card"><div className="sec-title">Screening threshold</div>
+      <input type="range" min="0.05" max="0.9" step="0.05" value={thr} onChange={e=>setThr(+e.target.value)}/>
+      <div className="mono" style={{color:CYAN,fontSize:13}}>risk ≥ {thr.toFixed(2)} → flag for review</div>
+    </div>
+    <div className="grid g4" style={{marginTop:18}}>
+      <div className="card kpi"><h3>Brugada caught</h3><div className="v cyan">{caught}</div></div>
+      <div className="card kpi"><h3>Brugada MISSED</h3><div className="v rose">{pos-caught}</div></div>
+      <div className="card kpi"><h3>Recall</h3><div className="v">{(recall*100).toFixed(0)}%</div></div>
+      <div className="card kpi"><h3>False alarms</h3><div className="v vio">{fa}</div></div>
+    </div>
+    <div className="card" style={{marginTop:18}}>
+      <div className="sec-title">Top 40 by risk score (click a row to inspect)</div>
+      <div style={{maxHeight:340,overflow:'auto'}}>
+        <table><thead><tr><th>Patient</th><th>Truth</th><th>Risk</th><th style={{width:'35%'}}>Score</th><th>Decision</th></tr></thead>
+        <tbody>{sorted.map(p=>{const flag=p.score>=thr;return(
+          <tr key={p.id} style={{cursor:'pointer'}} onClick={()=>goPatient(p.id)}>
+            <td className="mono">{p.id}</td>
+            <td><span className={'tag '+(p.label?'flag':'ok')}>{p.label?'Brugada':'healthy'}</span></td>
+            <td className="mono">{p.score.toFixed(3)}</td>
+            <td><div className="bar"><i style={{width:(p.score*100)+'%'}}></i></div></td>
+            <td><span className={'tag '+(flag?'flag':'ok')}>{flag?'FLAG':'clear'}</span></td>
+          </tr>);})}</tbody></table>
+      </div>
+    </div>
+  </>;
+}
+
+function PatientViewer({d, pid, setPid}){
+  const P=[...d.patients].sort((a,b)=>b.score-a.score);
+  const p=P.find(x=>x.id===pid)||P[0];
+  const trace=p.leads['V1'];
+  const tl={labels:trace.map((_,i)=>i),datasets:[{data:trace,borderColor:p.label?ROSE:CYAN,
+    pointRadius:0,borderWidth:1.6,tension:.25}]};
+  const fh=d.freqs_half;
+  const sp={labels:fh.map(x=>x.toFixed(1)),datasets:[{data:p.spec,borderColor:VIO,
+    backgroundColor:'rgba(139,92,246,.15)',fill:true,pointRadius:0,borderWidth:1.8,tension:.3}]};
+  return <>
+    <div className="card" style={{marginBottom:18,display:'flex',gap:18,alignItems:'center',flexWrap:'wrap'}}>
+      <div><h3 style={{color:'var(--muted)',fontSize:12}}>Patient</h3>
+        <select value={p.id} onChange={e=>setPid(+e.target.value)}>
+          {P.map(x=><option key={x.id} value={x.id}>{x.id} — {x.label?'Brugada':'healthy'} (risk {x.score.toFixed(2)})</option>)}
+        </select></div>
+      <div className="kpi"><h3>Risk score</h3><div className="v" style={{fontSize:28,color:p.score>=0.25?ROSE:CYAN}}>{p.score.toFixed(3)}</div></div>
+      <div className="kpi"><h3>True label</h3><div className="v" style={{fontSize:20}}>{p.label?'Brugada':'Healthy'}</div></div>
+      {p.scd?<span className="pill warn" style={{display:'inline-flex',alignItems:'center',gap:6}}><Icon name="warn" s={13}/> sudden-cardiac-death history</span>:null}
+    </div>
+    <div className="grid g2">
+      <div className="card"><div className="sec-title">Lead V1 — ECG trace</div>
+        <ChartCanvas type="line" data={tl} h={240} options={{plugins:{legend:{display:false}},scales:{x:{display:false}}}}/></div>
+      <div className="card"><div className="sec-title">Personal FFT spectrum</div>
+        <ChartCanvas type="line" data={sp} h={240} options={{plugins:{legend:{display:false}},scales:{x:{title:{display:true,text:'Hz'},ticks:{maxTicksLimit:7}}}}}/></div>
+    </div>
+  </>;
+}
+
+function Model({d}){
+  const imp=d.importance.slice(0,12).reverse();
+  const bar={labels:imp.map(x=>x.feature),datasets:[{data:imp.map(x=>x.importance),
+    backgroundColor:imp.map((_,i)=>`rgba(255,59,107,${.4+.5*i/12})`),borderRadius:6}]};
+  const cur=d.curve;
+  const sweep={labels:cur.map(x=>x.t.toFixed(2)),datasets:[
+    {label:'Recall',data:cur.map(x=>x.recall),borderColor:CYAN,yAxisID:'y',pointRadius:0,borderWidth:2,tension:.3},
+    {label:'False alarms',data:cur.map(x=>x.false_alarm),borderColor:ROSE,yAxisID:'y1',pointRadius:0,borderWidth:2,tension:.3},
+  ]};
+  return <div className="grid g2">
+    <div className="card"><div className="sec-title">Top feature importances (Random Forest)</div>
+      <ChartCanvas type="bar" data={bar} h={360}
+        options={{indexAxis:'y',plugins:{legend:{display:false}}}}/>
+      <p className="lead" style={{marginTop:12}}>The top drivers are <b style={{color:'#fff'}}>FFT high-frequency
+      band-power & spectral-entropy in V1</b> — the spectral approach is doing the work.</p></div>
+    <div className="card"><div className="sec-title">Recall / false-alarm trade-off vs threshold</div>
+      <ChartCanvas type="line" data={sweep} h={360}
+        options={{plugins:{legend:{position:'top'}},scales:{
+          y:{position:'left',title:{display:true,text:'Recall'},min:0,max:1},
+          y1:{position:'right',title:{display:true,text:'False alarms'},grid:{drawOnChartArea:false}}}}}/>
+      <p className="lead" style={{marginTop:12}}>Lowering the threshold lifts recall but adds false alarms —
+      the explicit screening trade-off.</p></div>
+  </div>;
+}
+
+function LiveMonitor(){
+  const [running,setRunning]=useState(false);
+  const [risk,setRisk]=useState(0), [fc,setFc]=useState(0), [slope,setSlope]=useState(0);
+  const [state,setState]=useState('idle'); // idle|ok|warn|alert
+  const [series,setSeries]=useState({t:[],r:[],f:[]});
+  const timer=useRef(null);
+  const THR=0.10, H=4;
+
+  const run=()=>{
+    if(timer.current) clearInterval(timer.current);
+    // synthetic risk: low, then ramps through the threshold
+    const n=46; const r=[];
+    for(let i=0;i<n;i++){let v=0.04; if(i>=14) v+=(i-14)*(0.40/(n-14)); v+=(Math.random()-0.5)*0.03; r.push(Math.max(0,Math.min(1,v)));}
+    const F=makeForecaster(0.4,0.3,1);
+    let i=0; const t=[],rs=[],fs=[];
+    setRunning(true); setState('ok'); setSeries({t:[],r:[],f:[]});
+    timer.current=setInterval(()=>{
+      if(i>=n){clearInterval(timer.current); setRunning(false); return;}
+      const cur=r[i]; F.update(cur);
+      const fhat=F.forecast(H); const pa=F.preAlert(THR,H);
+      t.push(i); rs.push(cur); fs.push(fhat);
+      setRisk(cur); setFc(fhat); setSlope(F.slope());
+      setState(cur>=THR?'alert':(pa?'warn':'ok'));
+      // forecast tail
+      const tail_t=[], tail_v=[]; for(let k=1;k<=H;k++){tail_t.push(i+k); tail_v.push(F.forecast(k));}
+      setSeries({t:[...t,...tail_t], r:[...rs,...Array(H).fill(null)], f:[...Array(rs.length).fill(null),...tail_v]});
+      i++;
+    },170);
+  };
+  useEffect(()=>()=>{if(timer.current)clearInterval(timer.current);},[]);
+
+  const data={labels:series.t,datasets:[
+    {label:'Live risk',data:series.r,borderColor:ROSE,backgroundColor:'rgba(255,59,107,.12)',fill:true,pointRadius:0,borderWidth:2.2,tension:.3},
+    {label:'Forecast',data:series.f,borderColor:VIO,borderDash:[6,4],pointRadius:0,borderWidth:2,tension:.3},
+  ]};
+  return <>
+    <div className="grid g2">
+      <div className="card"><div className="sec-title">Live risk + early-warning forecast</div>
+        <ChartCanvas type="line" data={data} h={320}
+          options={{animation:false,plugins:{legend:{position:'top'}},
+            scales:{y:{min:0,max:0.6,title:{display:true,text:'Brugada risk'}},x:{title:{display:true,text:'time step'}}}}}
+          />
+      </div>
+      <div className="card" style={{display:'flex',flexDirection:'column',gap:14}}>
+        <div className="sec-title" style={{margin:0}}>Monitor</div>
+        <div><h3 style={{color:'var(--muted)',fontSize:12}}>Live risk</h3>
+          <div className="gauge" style={{color:state==='alert'?ROSE:(state==='warn'?'#ffd27a':CYAN)}}>{risk.toFixed(2)}</div></div>
+        <div className="mono" style={{fontSize:12,color:'var(--muted)'}}>forecast(4) = {fc.toFixed(2)} &nbsp; slope {slope>=0?'+':''}{slope.toFixed(3)}/s</div>
+        {state==='warn' && <div className="banner warn">Early-warning pre-alert — projected to cross {THR.toFixed(2)} soon.</div>}
+        {state==='alert' && <div className="banner alert">Risk crossed the threshold — flag for review.</div>}
+        {state==='ok' && <div className="banner ok">Monitoring — below threshold</div>}
+        {state==='idle' && <div className="banner ok">Press start to stream</div>}
+        <button className="btn" onClick={run} disabled={running} style={{display:'inline-flex',alignItems:'center',gap:8,justifyContent:'center'}}>
+          {running?'streaming…':<><Icon name="play" s={15}/> Start live stream</>}</button>
+        <p className="lead" style={{fontSize:12}}>Holt double-exponential smoothing forecasts the risk a few steps
+        ahead and pre-alerts <b style={{color:'#fff'}}>before</b> the crossing — a streaming-analytics demo, not a
+        clinical predictor.</p>
+      </div>
+    </div>
+  </>;
+}
+
+/* ===================== APP SHELL ===================== */
+const NAV=[
+  ['overview','chart','Overview'],['spectra','wave','FFT Spectra'],['triage','triage','Triage'],
+  ['patient','heart','Patient Viewer'],['model','brain','Model'],['live','monitor','Live Monitor'],
+];
+const SUB={overview:'Cohort & headline metrics',spectra:'Spectral signature of Brugada',
+  triage:'Risk ranking & threshold trade-off',patient:'Per-patient trace & spectrum',
+  model:'What drives the screen',live:'Real-time monitor with forecasting'};
+
+function App(){
+  const [d,setD]=useState(null), [err,setErr]=useState(null);
+  const [view,setView]=useState('overview');
+  const [pid,setPid]=useState(null);
+
+  useEffect(()=>{
+    const paths=['outputs/dashboard_data.json','./outputs/dashboard_data.json','../outputs/dashboard_data.json','dashboard_data.json'];
+    (async()=>{
+      for(const p of paths){ try{const r=await fetch(p); if(r.ok){setD(await r.json());return;}}catch(e){} }
+      setErr('Could not load outputs/dashboard_data.json — serve the repo root (e.g. `python -m http.server`).');
+    })();
+  },[]);
+
+  if(err) return <div className="loading"><div style={{color:ROSE}}><Icon name="heart" s={44}/></div><p className="lead" style={{maxWidth:420,textAlign:'center'}}>{err}</p></div>;
+  if(!d) return <div className="loading"><div className="spin"></div><p className="lead">Loading SpectraCardio…</p></div>;
+
+  const goPatient=(id)=>{setPid(id);setView('patient');};
+  return <div className="shell">
+    <aside className="side">
+      <div className="brand"><span className="logo"><Icon name="heart" s={26}/></span><div><h1>SpectraCardio</h1><small>FFT ECG screening</small></div></div>
+      <nav className="nav">{NAV.map(([k,ic,lb])=>
+        <button key={k} className={view===k?'on':''} onClick={()=>setView(k)}><span className="ico"><Icon name={ic} s={17}/></span>{lb}</button>)}</nav>
+      <div className="foot">Educational demo on the PhysioNet<br/>Brugada-HUCA dataset (CC BY-SA 4.0).<br/><b>Not a diagnostic tool.</b></div>
+    </aside>
+    <main className="main">
+      <div className="topbar">
+        <div><h2>{NAV.find(n=>n[0]===view)[2]}</h2><p>{SUB[view]}</p></div>
+        <div style={{display:'flex',gap:8}}>
+          <span className="pill">ROC-AUC {d.metrics.roc_auc.toFixed(2)}</span>
+          <span className="pill warn" style={{display:'inline-flex',alignItems:'center',gap:6}}><Icon name="warn" s={13}/> not a diagnostic tool</span>
+        </div>
+      </div>
+      {view==='overview' && <Overview d={d}/>}
+      {view==='spectra' && <Spectra d={d}/>}
+      {view==='triage' && <Triage d={d} goPatient={goPatient}/>}
+      {view==='patient' && <PatientViewer d={d} pid={pid} setPid={setPid}/>}
+      {view==='model' && <Model d={d}/>}
+      {view==='live' && <LiveMonitor/>}
+    </main>
+  </div>;
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

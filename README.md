@@ -65,7 +65,23 @@ high-frequency power, the most-suspicious decile is **52.8% Brugada** versus
 near-0% in the cleanest deciles — and a second, independent feature (spectral
 entropy) shows the same gradient (44.9% → 3.4% across quartiles).
 
-## Interactive dashboard
+## Modern web app (glassmorphism React)
+
+`index.html` at the repo root is a sleek dark **React + Chart.js** single-page app
+(glass cards, animated gradient background, neon accents) with six views: Overview,
+FFT Spectra, Triage (live threshold slider), Patient Viewer, Model, and an animated
+**Live Monitor** with early-warning forecasting. No build step — it loads
+`outputs/dashboard_data.json` directly.
+
+```bash
+python -m http.server 8000        # serve locally, then open http://localhost:8000
+```
+
+Deploy free: on **GitHub Pages** it becomes your homepage at
+`https://<user>.github.io/SpectraCardio/`; or import the repo on **Vercel**
+(framework "Other", no build command) for a `*.vercel.app` URL.
+
+## Classic dashboard
 
 A custom static dashboard (`outputs/index.html`, deployable free on GitHub Pages) with five views:
 
@@ -75,7 +91,23 @@ A custom static dashboard (`outputs/index.html`, deployable free on GitHub Pages
 - **Patient Viewer** — click any patient to see their real ECG trace + personal FFT spectrum
 - **Model** — feature importances and the recall/false-alarm threshold sweep
 
-It's a static page loading `outputs/dashboard_data.json` — no server needed. A Streamlit version (`src/app.py`) is also included.
+It's a static page loading `outputs/dashboard_data.json` — no server needed.
+
+## Unified web app (one UI, deployable)
+
+`streamlit_app.py` is a single dashboard that bundles **everything** — cohort
+stats, FFT spectra, patient triage, model drivers, and a **live real-time monitor
+with early-warning forecasting** — into one app.
+
+```bash
+pip install -r requirements.txt
+streamlit run streamlit_app.py        # opens http://localhost:8501
+```
+
+**Deploy it free** on Streamlit Community Cloud: push the repo to GitHub, go to
+[share.streamlit.io](https://share.streamlit.io) → New app → pick this repo and
+`streamlit_app.py` as the entry file. The Live Monitor's "Synthetic demo" toggle
+runs on the cloud with no data download, so the deployed app works out of the box.
 
 ## Tech stack & skills demonstrated
 
