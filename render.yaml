@@ -1,0 +1,19 @@
+# Render Blueprint — deploys the full stack (React UI + FastAPI + /docs) as ONE
+# free web service. In Render: New + -> Blueprint -> connect this repo.
+# https://render.com  (free tier; the service sleeps when idle and wakes on the
+# next request).
+services:
+  - type: web
+    name: spectracardio
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements-api.txt
+    startCommand: uvicorn api.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+      - key: SC_LOG_LEVEL
+        value: INFO
+      - key: SC_THRESHOLD
+        value: "0.10"

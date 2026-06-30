@@ -106,6 +106,9 @@ Endpoints include `/health`, `/api/cohort`, `/api/patients`, `/api/score`
 `pytest`; GitHub Actions (`.github/workflows/ci.yml`) runs the suite and builds the
 Docker image on every push. Full details in [`api/README.md`](api/README.md).
 
+**Deploy the whole stack free** (UI + API + docs from one URL) on Render via the
+included `render.yaml` Blueprint — see [`DEPLOY.md`](DEPLOY.md).
+
 > ⚠️ This is **production-grade engineering of a research demo** — robust, tested,
 > deployable software. It is **not** a cleared medical device. Real clinical use
 > would require multi-center validation, prospective trials, and regulatory
