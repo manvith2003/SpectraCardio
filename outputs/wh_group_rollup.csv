@@ -1,0 +1,4 @@
+segment,n_patients,brugada_rate_pct,avg_risk_score
+ALL,356,19.4,0.188
+Brugada,69,100.0,0.38
+Healthy,287,0.0,0.142

@@ -15,4 +15,6 @@ venv/
 outputs/brugada.db
 outputs/*.db-journal
 outputs/*.joblib
+warehouse/*.db
+warehouse/*.db-journal
 # NOTE: outputs/dashboard_data.json IS tracked on purpose — GitHub Pages needs it.
