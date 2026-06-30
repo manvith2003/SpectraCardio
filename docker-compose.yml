@@ -1,0 +1,17 @@
+services:
+  api:
+    build: .
+    image: spectracardio-api
+    ports:
+      - "8000:8000"
+    environment:
+      SC_LOG_LEVEL: INFO
+      SC_THRESHOLD: "0.10"
+      # SC_API_KEY: "set-a-secret-to-require-X-API-Key-on-/api/score"
+      # SC_ALLOW_ORIGINS: "https://your-frontend.example"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

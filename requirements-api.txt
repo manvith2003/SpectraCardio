@@ -1,0 +1,8 @@
+# Runtime deps for the FastAPI backend (api/). Lean — no streamlit/plotly/wfdb.
+numpy
+pandas
+scipy
+scikit-learn
+joblib
+fastapi
+uvicorn[standard]

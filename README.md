@@ -81,6 +81,30 @@ Deploy free: on **GitHub Pages** it becomes your homepage at
 `https://<user>.github.io/SpectraCardio/`; or import the repo on **Vercel**
 (framework "Other", no build command) for a `*.vercel.app` URL.
 
+## Production backend (FastAPI + Docker + CI)
+
+A production-grade **FastAPI** service (`api/`) serves the model and data, with
+auto-generated OpenAPI docs, input validation, structured logging, optional API-key
+auth, CORS, health checks, and a mandatory disclaimer on every response. It also
+serves the React UI.
+
+```bash
+pip install -r requirements-dev.txt
+uvicorn api.main:app --reload     # API + docs at http://localhost:8000/docs
+# or, containerized:
+docker compose up --build
+```
+
+Endpoints include `/health`, `/api/cohort`, `/api/patients`, `/api/score`
+(score a posted ECG window), and `/api/forecast` (early-warning). Tests run with
+`pytest`; GitHub Actions (`.github/workflows/ci.yml`) runs the suite and builds the
+Docker image on every push. Full details in [`api/README.md`](api/README.md).
+
+> ⚠️ This is **production-grade engineering of a research demo** — robust, tested,
+> deployable software. It is **not** a cleared medical device. Real clinical use
+> would require multi-center validation, prospective trials, and regulatory
+> clearance (FDA / CE / CDSCO) under a medical-device quality system (IEC 62304).
+
 ## Classic dashboard
 
 A custom static dashboard (`outputs/index.html`, deployable free on GitHub Pages) with five views:
