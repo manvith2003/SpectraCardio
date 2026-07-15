@@ -1,4 +1,4 @@
-# 🫀 SpectraCardio — FFT-Based ECG Screening for Brugada Syndrome
+#  SpectraCardio — FFT-Based ECG Screening for Brugada Syndrome
 
 **An end-to-end data-analysis project: from raw 12-lead ECG signals to an interactive risk-triage dashboard.**
 Signal processing (FFT) → feature engineering → SQL cohort analysis → a recall-tuned classifier → a deployed dashboard.
